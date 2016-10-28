@@ -17,7 +17,7 @@ helpers do
 end
 
 def request_expects_json?
-  request.xhr? || !request.path_info.starts_with?("/admin") 
+  request.xhr?
 end
 
 def print(text)

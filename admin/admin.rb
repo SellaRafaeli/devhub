@@ -2,22 +2,8 @@ MANAGEABLE_COLLECTIONS = [:users,:contact_supplier,:contact_us,:errors, :sms_mes
 #MANAGEABLE_COLLECTIONS+=[:requests]
 MANAGEABLE_COLLECTIONS.map! {|n| $mongo.collection(n) }
 
-get '/admin/quotes_list' do
-  full_page_card(:"quotes_list")  
-end
-
-get '/admin/sms_list' do
-    full_page_card(:"sms_list")  
-end
-
-get '/admin/set_lang' do
-    $redis.set("site_lang", params[:lang])
-    redirect  '/admin/dashboard'
-end
-
-SECRET_VALUE =  "cookiemonster"
 get '/admin/dashboard' do
-    full_page_card(:"admin_dashboard")  
+  full_page_card(:"admin/admin_dashboard")  
 end
 
 get '/admin/add_fake_users' do
@@ -63,8 +49,6 @@ end
 get "/admin/manage/:coll" do 
   erb :"admin/items", default_layout
 end 
-
-
 
 before '/admin*' do
   protected!

@@ -14,6 +14,8 @@ Bundler.require
 
 Dotenv.load
 
+$app_name   = 'devForum'
+
 require './setup'
 require './my_lib'
 
@@ -26,20 +28,12 @@ require_all './mw'
 
 include Helpers
 
-$app_name   = 'Cosmeticall'
+
 
 get '/ping' do
   {msg: "pong from #{$app_name}", val: 123}
 end
 
-get "/testing_erb" do 
-   erb :"other/testing_erb", layout:nil
+get '/' do
+  erb :homepage, layout: :layout
 end
-
-get '/payment' do
-  full_page_card(:"users/payment_page")
-end
-
-
-
-# fb app token: EAAOxuLF0mJkBAH8r1ykzjhq5xeZCQ6WEZAb7TtcWNQ2eZBW887Lf9AYW3a10WvIJLWsD3uiXT9TZBgZAPwi2adBxCBLr14hVHorjjedy3W6gEPM6Gg3ZCUBfcHLFo6tZCu4fflBYIHfofzqoQ67W2pZABd87GLUSJCeFIIkTgGLeOAZDZD
