@@ -1,4 +1,10 @@
-Cosmeticall
-===========
+devForum
+========
 
-Web-app for getting cosmetician's appointment in your area.
+- homepage
+- userpage
+- register, login
+- add post 
+- post page 
+
+

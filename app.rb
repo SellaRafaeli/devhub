@@ -26,9 +26,7 @@ require_all './comm'
 require_all './logging'
 require_all './mw'
 
-include Helpers
-
-
+include Helpers #makes helpers globally available 
 
 get '/ping' do
   {msg: "pong from #{$app_name}", val: 123}
