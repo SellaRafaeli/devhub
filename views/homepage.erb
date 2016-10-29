@@ -1,1 +1,10 @@
 <h1> Welcome to <%= $app_name %></h1>
+
+<% posts = $posts.find.sort({created_at: -1}).limit(10).to_a %>
+
+<% posts.each do |post| %>
+  <div style='border:1px solid red; padding: 10px'>
+    <a href='<%=post['url']%>'><%=post['url']%></a>
+    <a href='/p/<%=post['slug']%>'> (comments thread) - <%= $comments.find(post_id: post['_id']).count %> comments </a>
+  </div>
+<% end %>

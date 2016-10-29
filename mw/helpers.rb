@@ -7,3 +7,7 @@ module Helpers
     @rendering_app.erb(*args, &block)
   end
 end
+
+def slugify(str)
+  str.to_s.to_slug.normalize.to_s.slice(0,200)
+end

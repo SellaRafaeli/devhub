@@ -1,0 +1,22 @@
+<div id='submit_post_page'>
+  <h1> Submit Post </h1>
+
+  <form action='submit' method='post'>
+    <input class='form-control' name='url' placeholder='url' v-model=url>
+    <input class='form-control' name='title' placeholder='title' v-model=title>
+    <button class='btn' :disabled=!allowSubmit type='submit'> Submit </button>
+  </form>
+</div>
+<script>
+var app = new Vue({
+  el: '#submit_post_page',
+  data: {
+    url: '',
+    title: '',
+  },
+  computed: {
+    allowSubmit: function() { return this.url && this.title; },
+  },
+
+})
+</script>

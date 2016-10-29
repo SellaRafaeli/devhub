@@ -26,12 +26,13 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right header-links">
-            <li><a href="/"> Home </a></li>
-            <% if cu %>
-                <li><a href="/me"> Me (<%= cu['first_name'] %>) </a></li>
-                <li><a href="/logout"> Log Out</a></li>
+            <li><a href="/">Home</a></li>
+                <% if cu %>
+                  <li><a href="/me">Me (<%= cu['first_name'] || 'no name' %>) </a></li>
+                  <li><a href="/submit">Submit</a></li>
+                  <li><a href="/logout">Log Out</a></li>
                 <% else %>
-                <li> <a href="/register"> Register </a></li>
+                  <li> <a href="/register">Register</a></li>
                 <% end %>
                 <li><a href="/contact">Contact Us</a></li>
                 <li><a href="/about">About</a></li>

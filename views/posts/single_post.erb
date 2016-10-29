@@ -1,0 +1,22 @@
+<h1> Single Post </h1>
+
+<h2> Post data </h2>
+<%= post.to_json %>
+
+<h3> Comments </h3>
+
+<% comments = $comments.find(post_id: post[:_id]).to_a || [] %>
+
+<% comments.each do |comment| %>
+  <div style='border:1px solid purple; padding: 20px'>
+    <%= comment.to_json %>
+  </div>
+<% end %>
+
+<% if cu %>
+<form action='/comments/submit' method='post'>
+  <input type=hidden name=post_id value=<%=post[:_id]%>>
+  <textarea class='form-control' name='text' placeholder='Your comment'></textarea>
+  <button class='form-control' type=submit>Submit</button>
+</form>
+<% end %>

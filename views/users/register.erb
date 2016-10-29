@@ -1,1 +1,25 @@
-<%= erb :"users/partials/my_details", locals: {title: 'Register'} %>
+<div id='register'>
+  <h1> {{title}} </h1>
+  <form action='/register' method='post'>
+    <input name=email placeholder='Email' v-model=email >
+    <button class='btn' :disabled=!allowSubmit type='submit'> Submit </button>
+    <span class=errMsg> {{errMsg}} </span>
+  </form>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#register',
+  data: {
+    title: 'Register',
+    email: ''
+  },
+  computed: {
+    allowSubmit: function() { return this.email; },
+    errMsg: function () {
+      if (!this.email) return 'No email.';
+    }
+  },
+
+})
+</script>

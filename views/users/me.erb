@@ -1,1 +1,34 @@
-<%= erb :"users/partials/my_details", locals: {title: 'Edit Me', user: cu} %>
+<div id='my_details'>
+  <h1> {{title}} </h1>
+  <form action='/register' method='post'>
+    <input name=email placeholder='Email' v-model=email >
+    <input name=password type=password placeholder='Password' v-model=password>
+    <input name=first_name placeholder='First Name' v-model=first_name>
+    <input name=last_name placeholder='Last Name' v-model=last_name>
+    <input name=desc placeholder='Position' v-model=desc>
+    
+    <button class='btn' :disabled=!allowSubmit type='submit'> Submit </button>
+    <span class=errMsg> {{errMsg}} </span>
+  </form>
+</div>
+
+<script>
+var app = new Vue({
+  el: '#my_details',
+  data: {
+    title: 'Edit My Details',
+    email: '<%= cu['email'] %>',
+    password: '<%= cu['password'] %>',
+    first_name: '<%= cu['first_name'] %>',
+    last_name: '<%= cu['last_name'] %>',
+    desc: '<%= cu['desc'] %>',
+  },
+  computed: {
+    allowSubmit: function() { return this.email; },
+    errMsg: function () {
+      if (!this.email) return 'No email.';
+    }
+  },
+
+})
+</script>
