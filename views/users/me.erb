@@ -1,3 +1,7 @@
+<script> 
+var cu = <%= cu.to_json || {} %>
+</script>
+
 <div id='my_details'>
   <h1> {{title}} </h1>
   <form action='/register' method='post'>
@@ -7,7 +11,7 @@
     <input name=last_name placeholder='Last Name' v-model=last_name>
     <input name=desc placeholder='Position' v-model=desc>
     
-    <button class='btn' :disabled=!allowSubmit type='submit'> Submit </button>
+    <button class='btn' :disabled=!allowSubmit type='submit' @click=submitDetails> Submit </button>
     <span class=errMsg> {{errMsg}} </span>
   </form>
 </div>
@@ -17,11 +21,11 @@ var app = new Vue({
   el: '#my_details',
   data: {
     title: 'Edit My Details',
-    email: '<%= cu['email'] %>',
-    password: '<%= cu['password'] %>',
-    first_name: '<%= cu['first_name'] %>',
-    last_name: '<%= cu['last_name'] %>',
-    desc: '<%= cu['desc'] %>',
+    email: cu["email"],
+    password: cu["password"],
+    first_name: cu["first_name"],
+    last_name: cu["last_name"],
+    desc: cu["desc"],
   },
   computed: {
     allowSubmit: function() { return this.email; },
@@ -29,6 +33,13 @@ var app = new Vue({
       if (!this.email) return 'No email.';
     }
   },
+  methods: {
+    submitDetails () { 
+      alert('submitting details...')
+    }
+    //notice the above 'submitDetails' is ES6 syntax (new JS syntax that is gradually being accepted by browsers). 'submitDetails() { ... }' instead of 'submitDetails: function() { ... }'.
+  }
+  }
 
 })
 </script>

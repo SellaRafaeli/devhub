@@ -1,5 +1,15 @@
 $posts = $mongo.collection('posts')
 
+def single_post_page_data(post)
+  comments = $comments.find(post_id: post[:_id]).to_a || []
+  {cu: cu, post: post, comments: comments }
+end
+
+get '/posts/homepage' do
+  posts = $posts.find.sort({created_at: -1}).limit(10).to_a
+  {posts: posts}
+end
+
 get '/submit' do
   to_page :'posts/submit'
 end
@@ -17,4 +27,3 @@ get '/p/:post_slug' do
   post = $posts.get(slug: params[:post_slug])
   to_page :'posts/single_post', locals: {post: post}
 end
-

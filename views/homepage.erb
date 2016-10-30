@@ -1,11 +1,4 @@
-<h1> Welcome to <%= $app_name %></h1>
-
-<% posts = $posts.find.sort({created_at: -1}).limit(10).to_a %>
-<% posts.map {|p| p['votes'] ||= rand(1000); p } %>
-
-<script>
-  var homepagePostsJson = <%= posts.to_json %>
-</script>
+<h1> Welcome to devForum.</h1>
 
 <div id="app">
   <div class="container-fluid">
@@ -14,15 +7,6 @@
     </ul>
   </div>
 </div>
-
-<template id="post-template">
-  <li class="list-group-item">
-    <i class="glyphicon glyphicon-chevron-up" @click="upvote" :class="{disabled: upvoted}"></i>
-    <span class="label label-primary">{{ votes }}</span>
-    <i class="glyphicon glyphicon-chevron-down" @click="downvote" :class="{disabled: downvoted}"></i>
-    <a :href=link>{{ post.title }}</a>
-  </li>
-</template>
 
 <script src='/js/components/post.js'></script>
 <script src='/js/homepage/homepage.js'></script>

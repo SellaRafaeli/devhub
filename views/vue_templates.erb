@@ -1,0 +1,17 @@
+<template id="post-template">
+  <li class="list-group-item">
+    <i class="glyphicon glyphicon-chevron-up" @click="upvote" :class="{disabled: upvoted}"></i>
+    <span class="label label-primary">{{ votes }}</span>
+    <i class="glyphicon glyphicon-chevron-down" @click="downvote" :class="{disabled: downvoted}"></i>
+    <a :href=link>{{ post.title }}</a>
+  </li>
+</template>
+
+<template id="comment-template">
+  <li class="list-group-item">
+    <i class="glyphicon glyphicon-chevron-up" @click="upvote" :class="{disabled: upvoted}"></i>
+    <span class="label label-primary">{{ votes }}</span>
+    <i class="glyphicon glyphicon-chevron-down" @click="downvote" :class="{disabled: downvoted}"></i>
+    <span>{{ comment.text }}</span>
+  </li>
+</template>
