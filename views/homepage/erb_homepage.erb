@@ -1,0 +1,9 @@
+<!-- #not currently used -->
+<% if use_server_side_rendering = false %>
+  <% posts.each do |post| %>
+    <div style='border:1px solid red; padding: 10px'>
+      <a href='<%=post['url']%>'><%=post['url']%></a>
+      <a href='/p/<%=post['slug']%>'> (comments thread) - <%= $comments.find(post_id: post['_id']).count %> comments </a>
+    </div>
+  <% end %>
+<% end %>
