@@ -1,9 +1,13 @@
 <h1> Welcome to devForum.</h1>
 
+<!-- https://coligo.io/vuejs-components/ -->
+
 <div id="app">
+<!-- 	<input v-model=foo />
+	<div> {{foo}} </div> -->
   <div class="container-fluid">
     <ul class="list-group">
-      <post v-for="post in posts" :post="post"></post>
+      <post-component v-for="postItem in postsList" v-bind:postdata="postItem"></post-component>
     </ul>
   </div>
 </div>

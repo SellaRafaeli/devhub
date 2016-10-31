@@ -1,6 +1,6 @@
-Vue.component('post', {
+Vue.component('post-component', {
   template: "#post-template",
-  props: ['post'],
+  props: ['postdata'],  
   data: function () {
     return {
       upvoted: false,
@@ -19,16 +19,16 @@ Vue.component('post', {
   },
   computed: {
     link: function() {
-      return '/p/'+this.post.slug;
+      return '/p/'+this.postdata.slug;
     },
     votes: function () {
-      this.post.votes = this.post.votes || 0;
+      this.postdata.votes = this.postdata.votes || 0;
       if (this.upvoted) {
-        return this.post.votes + 1;
+        return this.postdata.votes + 1;
       } else if (this.downvoted) {
-        return this.post.votes - 1;
+        return this.postdata.votes - 1;
       } else {
-        return this.post.votes;
+        return this.postdata.votes;
       }
     }
   }

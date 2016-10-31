@@ -5,7 +5,7 @@ Tasks
 Phase 1:
 ========
 homepage:
-  - list of posts: for each post, show submitter, number of comments and creation time
+  - list of posts: for each post, show submitter (user_id), number of comments and creation time
   - make upvote send ajax to server which will:
     a) create an 'upvotes' item in a mongo collection ($post_upvotes), e.g. {post_id: 123, user_id: abc}. Then count then new number of upvotes and update the post accordingly (so we can display it in the view)
     b) hide the downvote button for now. I want just upvotes. 
@@ -29,7 +29,7 @@ Phase 2:
 - we'll build a user page. 
   - let each user choose their username. By default (on registration), set it to their email's login (the part before the @), but verify it exists. You can do this using 'get_unique_slug' from mongo.rb which is designed to do just this. It should also be editable via the '/me' route. 
   - for each post/comment, show the submitter username. 
-  - From each comment (in a single_post page) and from each post (in the homepage) we should link the submitter username of the post/comment to his/her user page.  
+  - From each comment (in a single_post page) and from each post (in the homepage) we should link the submitter username of the post/comment to his/her user page.
   - make /u/:username lead to a user.erb page. 
   - serve this page from users/user.erb. Display the user's name, and display a list of all the posts he wrote as well as all the comments he ever wrote. (Note this should be reusing the techniques we saw in homepage.erb and single_post.erb, and should be rendering the posts and comments as variables of a VueJS VM, and not by server-side rendering.) Each post should link to the related post page, each comment should lead to the page of that comment's post. 
 

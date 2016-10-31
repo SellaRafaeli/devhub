@@ -1,10 +1,11 @@
 var homepage = new Vue({
   el: "#app",
   data: {
-    posts: [],
+  	foo: 'bla',
+    postsList: [],
   }
 });
 
 $.get('/posts/homepage').success(function(res) {
-  homepage.posts = res.posts;
+  homepage.postsList = res.postsArray;
 })  

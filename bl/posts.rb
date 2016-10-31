@@ -7,7 +7,7 @@ end
 
 get '/posts/homepage' do
   posts = $posts.find.sort({created_at: -1}).limit(10).to_a
-  {posts: posts}
+  {postsArray: posts}
 end
 
 get '/submit' do
