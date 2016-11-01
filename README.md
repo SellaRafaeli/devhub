@@ -9,7 +9,7 @@ homepage:
   - make upvote send ajax to server which will:
     a) create an 'upvotes' item in a mongo collection ($post_upvotes), e.g. {post_id: 123, user_id: abc}. Then count then new number of upvotes and update the post accordingly (so we can display it in the view)
     b) hide the downvote button for now. I want just upvotes. 
-  - display the number of upvotes on the post 
+  - display the number of puvotes on the post 
   - note homepage.erb is technically an 'erb' page (so we could embed ruby in it) but we're not embedding any ruby - this page could be served just the same from some CDN; it's a minimal SPA. In general this app is a bunch of 'SPA's; it's a Multi-page app. ;) 
 
 single_post:

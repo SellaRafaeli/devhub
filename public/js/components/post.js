@@ -4,18 +4,31 @@ Vue.component('post-component', {
   data: function () {
     return {
       upvoted: false,
-      downvoted: false
+      downvoted: false,
     };
   },
   methods: {
     upvote: function () {
-      this.upvoted = !this.upvoted;
-      this.downvoted = false;
+      console.log("this one", this)
+      var postComponent = this;
+      $.post("/post_upvote", {post_id: this.postdata._id})
+      .success(function(response){
+        postComponent.upvoted = !postComponent.upvoted;
+        postComponent.downvoted = false;
+        postComponent.postdata.votes = response.count;
+      })
     },
+
     downvote: function () {
-      this.downvoted = !this.downvoted;
-      this.upvoted = false;
-    }
+      console.log("this one", this)
+      var postComponent = this;
+      $.post("/post_downvote", {post_id: this.postdata._id})
+      .success(function(response){
+        postComponent.downvoted =!postComponent.downvoted;
+        postComponent.upvoted = false;
+        postComponent.postdata.votes = response.count;
+      })
+    },
   },
   computed: {
     link: function() {

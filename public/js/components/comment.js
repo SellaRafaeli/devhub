@@ -1,3 +1,4 @@
+
 Vue.component('comment', {
   template: "#comment-template",
   props: ['comment'],
@@ -7,15 +8,36 @@ Vue.component('comment', {
       downvoted: false
     };
   },
+
   methods: {
-    upvote: function () {
-      this.upvoted = !this.upvoted;
-      this.downvoted = false;
+      upvote: function () {
+      var commentComponent = this;
+      $.post("/comment_upvote", {comment_id: this.comment._id})
+      .success(function(response){
+        commentComponent.upvoted = !commentComponent.upvoted;
+        commentComponent.downvoted = false;
+        commentComponent.comment.votes = response.count;
+        console.log("#############" + response.count);
+      })
     },
+
     downvote: function () {
-      this.downvoted = !this.downvoted;
-      this.upvoted = false;
-    }
+      var commentComponent = this;
+      $.post("/comment_downvote", {comment_id: this.comment._id})
+      .success(function(response){
+        commentComponent.downvoted =!commentComponent.downvoted;
+        commentComponent.upvoted = false;
+        commentComponent.comment.votes = response.count;
+      })
+    },
+    // upvote: function () {
+    //   this.upvoted = !this.upvoted;
+    //   this.downvoted = false;
+    // },
+    // downvote: function () {
+    //   this.downvoted = !this.downvoted;
+    //   this.upvoted = false;
+    // }
   },
   computed: {
     votes: function () {
