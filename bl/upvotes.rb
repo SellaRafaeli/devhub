@@ -15,7 +15,11 @@ end
 
 post '/post_upvote' do
   require_user
-  $post_upvotes.add(post_id: params[:post_id], user_id:cuid)
+  user_id = cuid || params[:user_id]
+  # res = $post_upvotes.update_id(cuid, {post_id: params[:post_id], user_id:cuid, updated_at: Time.now}, upsert: true)
+  # res = $post_upvotes.update_id(key, {val: val, updated_at: Time.now}, upsert: true)
+  # $post_upvotes.add(post_id: params[:post_id], user_id:cuid)
+  $post_upvotes.upsert({user_id: user_id, post_id: params[:post_id]}, {time_voted: Time.now})
   count = votes_count_id()
   {count:count}
 end
@@ -50,7 +54,7 @@ end
 def votes_count(post)
   upvotes = $post_upvotes.find(post_id: post[:_id]).count
   downvotes = $post_downvotes.find(post_id: post[:_id]).count
-  vote = upvotes - downvotes
+  vote = upvotes# - downvotes
 end
 
 def comment_votes_count(comment)
@@ -69,5 +73,5 @@ end
 def votes_count_id()
   upvotes = $post_upvotes.find(post_id: params[:post_id]).count
   downvotes = $post_downvotes.find(post_id: params[:post_id]).count
-  vote = upvotes - downvotes
+  vote = upvotes# - downvotes
 end
