@@ -2,7 +2,7 @@
 var cu = <%= cu.to_json || {} %>
 </script>
 
-<div id='my_details'>
+<!-- <div id='my_details'>
   <h1> {{title}} </h1>
   <form action='/register' method='post'>
     <input name=email placeholder='Email' v-model=email >
@@ -14,6 +14,27 @@ var cu = <%= cu.to_json || {} %>
     <button class='btn' :disabled=!allowSubmit type='submit' @click=submitDetails> Submit </button>
     <span class=errMsg> {{errMsg}} </span>
   </form>
+
+ -->
+<!--     <form method="post" @submit.prevent='addUser'>
+    <input name=email placeholder='Email' v-model=email >
+    <input name=password type=password placeholder='Password' v-model=password>
+    <input name=first_name placeholder='First Name' v-model=first_name>
+    <input name=last_name placeholder='Last Name' v-model=last_name>
+    <input name=desc placeholder='Position' v-model=desc>
+    
+    <button class='btn' type=submit>Submit</button>
+    <span class=errMsg> {{errMsg}} </span>
+  </form>
+
+
+    <form method="post" @submit.prevent='addComment'>
+    <input type=zhidden v-model="post._id">
+    <input type="text" placeholder="Your comment" v-model="new_comment_text"/>
+    <button class="tiny radius" type=submit>Submit</button>
+  </form> -->
+
+
 </div>
 
 <script>

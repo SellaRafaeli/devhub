@@ -21,5 +21,6 @@ post '/register' do
   user = params.just(:email, :password, :first_name, :last_name, :desc)
   user = $users.add(user)
   session[:user_id] = user['_id']
-  redirect '/me'
+  # redirect '/'
 end
+

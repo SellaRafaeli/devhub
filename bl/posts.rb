@@ -6,10 +6,13 @@ def single_post_page_data(post)
   {cu:cu, post: post, comments: comments}
 end
 
+
 get '/posts/homepage' do
+  # return flag if cu upvoted post
   posts = $posts.find.sort({created_at: -1}).limit(10).to_a
   posts.map! {|post| post[:comments_count] = comments_count(post)
-    post[:votes]=  votes_count(post);
+    post[:votes] =  votes_count(post);
+    post[:i_upvoted] = cuid && user_upvoted_post?(cuid, post[:_id])
     post}
   {postsArray: posts}
 end
@@ -24,7 +27,7 @@ post '/submit' do
   data[:user_id] = cuid
   data[:slug]    = get_unique_slug($posts, :slug, data[:title])
   post = $posts.add(data)
-  redirect "/p/#{post[:slug]}"
+  #redirect "/p/#{post[:slug]}"
 end
 
 get '/p/:post_slug' do

@@ -1,3 +1,38 @@
+// new Vue({
+//     el: '#submit_comment',
+//     data: {
+        
+//         newWorkorder: {
+//             text: '',
+//             area: '',
+//             areaNumber: '',
+//             location: '',
+//             detail: ''
+//         },
+//         workorders: []
+//     },  
+//     ready: function(){
+//         this.fetchWorkorders();
+//     },
+//     methods: {
+//          addworkOrder: function(e) {
+//          e.preventDefault();    
+//          this.newWorkorder.push(this.newWorkorder);
+//  },
+//     }
+// });
+
+// var app = new Vue({
+//   el: '#submit_comment',
+//   data: {
+//     text: '',
+//     post_id: '',
+//   },
+//   computed: {
+//     allowSubmit: function() { return this.text && this.post_id; },
+//   },
+
+// })
 
 Vue.component('comment', {
   template: "#comment-template",
@@ -17,9 +52,13 @@ Vue.component('comment', {
         commentComponent.upvoted = !commentComponent.upvoted;
         commentComponent.downvoted = false;
         commentComponent.comment.votes = response.count;
-        console.log("#############" + response.count);
       })
     },
+
+     addComment: function(e) {
+         e.preventDefault();    
+         this.newWorkorder.push(this.newWorkorder);
+ },
 
     downvote: function () {
       var commentComponent = this;

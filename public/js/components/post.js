@@ -1,26 +1,43 @@
 Vue.component('post-component', {
+  // $.get('/post_upvoted?'{post_id: this.postdata._id})
+  // .success(function(res) {
+  //   postComponent.upvoted = res.upvote;
+  //   });
+
   template: "#post-template",
   props: ['postdata'],  
   data: function () {
     return {
-      upvoted: false,
+      upvoted: this.postdata.i_upvoted,
       downvoted: false,
     };
   },
   methods: {
+
     upvote: function () {
-      console.log("this one", this)
       var postComponent = this;
+      if (!this.upvoted) { 
       $.post("/post_upvote", {post_id: this.postdata._id})
       .success(function(response){
         postComponent.upvoted = !postComponent.upvoted;
         postComponent.downvoted = false;
         postComponent.postdata.votes = response.count;
-      })
+      });
+    }
+
+    else {
+      $.post("/post_unupvote", {post_id: this.postdata._id})
+      .success(function(response){
+        postComponent.upvoted = !postComponent.upvoted;
+        postComponent.downvoted = false;
+        postComponent.postdata.votes = response.count;
+      });
+    }
+
+
     },
 
     downvote: function () {
-      console.log("this one", this)
       var postComponent = this;
       $.post("/post_downvote", {post_id: this.postdata._id})
       .success(function(response){

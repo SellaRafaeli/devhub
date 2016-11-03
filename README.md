@@ -4,18 +4,28 @@ Tasks
 =====
 Phase 1:
 ========
+
+---------- UNOPVOTE
+------ VOTE ONLY ONCE 
 homepage:
-  - list of posts: for each post, show submitter (user_id), number of comments and creation time
+list of posts: for each post, show submitter (user_id), number of comments and creation time
+
   - make upvote send ajax to server which will:
-    a) create an 'upvotes' item in a mongo collection ($post_upvotes), e.g. {post_id: 123, user_id: abc}. Then count then new number of upvotes and update the post accordingly (so we can display it in the view)
+    - a) create an 'upvotes' item in a mongo collection ($post_upvotes), e.g. {post_id: 123, user_id: abc}.
+    -  Then count then new number of upvotes and update the post accordingly (so we can display it in the view)
     b) hide the downvote button for now. I want just upvotes. 
-  - display the number of puvotes on the post 
+
+  - display the number of upvotes on the post 
+
   - note homepage.erb is technically an 'erb' page (so we could embed ruby in it) but we're not embedding any ruby - this page could be served just the same from some CDN; it's a minimal SPA. In general this app is a bunch of 'SPA's; it's a Multi-page app. ;) 
 
 single_post:
+
   - for each comment, similarly as for posts, make the upvote send an ajax (in $comment_upvotes) and then count and update the number of upvotes this comment has.
   - display the number of upvotes. 
+
   - when adding a new comment, instead of refreshing the page, send it with an AJAX (via a method call from the Vue VM) and then push it into the data.comments. 
+
 
 me.erb:
   - allow submitting only if all fields are filled, and allow only passwords of 3 characters or more. Show appropriate error messages. 
