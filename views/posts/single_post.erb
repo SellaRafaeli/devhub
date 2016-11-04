@@ -20,15 +20,6 @@
     <input type="text" placeholder="Your comment" v-model="new_comment_text"/>
     <button class="tiny radius" type=submit>Submit</button>
   </form>
-
-<!--   <form action='/comments/submit' method='post'>
-    <input type=hidden name=post_id value=<%=post[:_id]%>>
-    <textarea class='form-control' name='text' placeholder='Your comment'></textarea>
-    <button class='form-control' type=submit>Submit</button>
-
-  </form> -->
-
-
 </div>
 
 <script>
@@ -46,7 +37,6 @@
         $.post("/comments/submit", {post_id: this.post._id, text: this.new_comment_text})
         .success(function(response){
           single_post.comments.push(response.comment);
-          // this.comments.push(response) //????
         return
       })
 

@@ -1,9 +1,4 @@
 Vue.component('post-component', {
-  // $.get('/post_upvoted?'{post_id: this.postdata._id})
-  // .success(function(res) {
-  //   postComponent.upvoted = res.upvote;
-  //   });
-
   template: "#post-template",
   props: ['postdata'],  
   data: function () {

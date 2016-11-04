@@ -6,19 +6,16 @@ $comment_downvotes = $mongo.collection('comment_downvotes')
 
 def user_upvoted_post?(user_id, post_id)
 	$post_upvotes.exists?(user_id:user_id, post_id:post_id)
-	#return true if upvote
 end
 
-# def upvotes_count(post)
-#   $post_upvotes.find(post_id: post[:_id]).count
-# end
+def user_upvoted_comment?(user_id, comment_id)
+	$comment_upvotes.exists?(user_id:user_id, comment_id:comment_id)
+end
+
 
 post '/post_upvote' do
   require_user
   user_id = cuid || params[:user_id]
-  # res = $post_upvotes.update_id(cuid, {post_id: params[:post_id], user_id:cuid, updated_at: Time.now}, upsert: true)
-  # res = $post_upvotes.update_id(key, {val: val, updated_at: Time.now}, upsert: true)
-  # $post_upvotes.add(post_id: params[:post_id], user_id:cuid)
   $post_upvotes.upsert({user_id: user_id, post_id: params[:post_id]}, {time_voted: Time.now})
   count = votes_count_id()
   {count:count}
@@ -28,13 +25,21 @@ post '/post_unupvote' do
   require_user
   $post_upvotes.delete_one(post_id: params[:post_id], user_id:cuid)
   count = votes_count_id()
-
   {count:count}
 end
 
 post '/comment_upvote' do
   require_user
-  $comment_upvotes.add(comment_id: params[:comment_id], user_id:cuid)
+  user_id = cuid || params[:user_id]
+  $comment_upvotes.upsert({user_id: user_id, comment_id: params[:comment_id]}, {time_voted: Time.now})
+  #$comment_upvotes.add(comment_id: params[:comment_id], user_id:cuid)
+  count = comment_votes_count_id()
+  {count:count}
+end
+
+post '/comment_unupvote' do
+  require_user
+  $comment_upvotes.delete_one(comment_id: params[:comment_id], user_id:cuid)
   count = comment_votes_count_id()
   {count:count}
 end
@@ -47,9 +52,6 @@ post '/post_downvote' do
   count = votes_count_id()
   {count:count}
 end
-
-
-
 
 def votes_count(post)
   upvotes = $post_upvotes.find(post_id: post[:_id]).count
