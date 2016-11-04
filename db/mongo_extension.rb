@@ -79,6 +79,11 @@ class Mongo::Collection
     {_id: _id}.merge(res).hwia
   end
 
+  def upsert(crit, fields={})
+  fields_to_set = crit.merge(fields)
+  res = self.find_one_and_update(crit, {'$set' => fields_to_set}, upsert: true)
+end  
+
   def set(crit, fields = {}, opts = {}) #opts['upsert'] == true to upsert     
     update(crit, {'$set' => fields.merge(updated_at: Time.now)}, opts)
   end

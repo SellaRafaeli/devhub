@@ -13,13 +13,14 @@ get '/logout' do
   redirect '/'
 end
 
+
 get '/me' do
   to_page(:'users/me')
 end
 
 post '/register' do
-  user = params.just(:email, :password, :first_name, :last_name, :desc)
-  user = $users.add(user)
+  user_params = params.just(:email, :password, :first_name, :last_name, :desc)
+  user = $users.add(user_params)
   session[:user_id] = user['_id']
-  redirect '/me'
+  {user: user}
 end

@@ -10,15 +10,15 @@
 
   <h4> Comments </h4>
   <div class="container-fluid">
-      <ul class="list-group">
-        <comment v-for="comment in comments" :comment="comment"></comment>
-      </ul>
+    <ul class="list-group">
+      <comment v-for="comment in comments" :comment="comment"></comment>
+    </ul>
   </div>
 
-  <form action='/comments/submit' method='post'>
-    <input type=hidden name=post_id value=<%=post[:_id]%>>
-    <textarea class='form-control' name='text' placeholder='Your comment'></textarea>
-    <button class='form-control' type=submit>Submit</button>
+  <form method="post" @submit.prevent='addComment'>
+    <input type=zhidden v-model="post._id">
+    <input type="text" placeholder="Your comment" v-model="new_comment_text"/>
+    <button class="tiny radius" type=submit>Submit</button>
   </form>
 </div>
 
@@ -28,7 +28,21 @@
     data: {
       cu: postData.cu,
       post: postData.post,
-      comments: postData.comments
+      comments: postData.comments,
+      new_comment_text: "",
+    },
+    methods: {
+      addComment: function (argument) {
+        var single_post = this;
+        $.post("/comments/submit", {post_id: this.post._id, text: this.new_comment_text})
+        .success(function(response){
+          single_post.comments.push(response.comment);
+        return
+      })
+
+        
+        
+      }
     }
   });
 </script>

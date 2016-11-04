@@ -1,34 +1,59 @@
-Vue.component('post', {
+Vue.component('post-component', {
   template: "#post-template",
-  props: ['post'],
+  props: ['postdata'],  
   data: function () {
     return {
-      upvoted: false,
-      downvoted: false
+      upvoted: this.postdata.i_upvoted,
+      downvoted: false,
     };
   },
   methods: {
+
     upvote: function () {
-      this.upvoted = !this.upvoted;
-      this.downvoted = false;
-    },
-    downvote: function () {
-      this.downvoted = !this.downvoted;
-      this.upvoted = false;
+      var postComponent = this;
+      if (!this.upvoted) { 
+      $.post("/post_upvote", {post_id: this.postdata._id})
+      .success(function(response){
+        postComponent.upvoted = !postComponent.upvoted;
+        postComponent.downvoted = false;
+        postComponent.postdata.votes = response.count;
+      });
     }
+
+    else {
+      $.post("/post_unupvote", {post_id: this.postdata._id})
+      .success(function(response){
+        postComponent.upvoted = !postComponent.upvoted;
+        postComponent.downvoted = false;
+        postComponent.postdata.votes = response.count;
+      });
+    }
+
+
+    },
+
+    downvote: function () {
+      var postComponent = this;
+      $.post("/post_downvote", {post_id: this.postdata._id})
+      .success(function(response){
+        postComponent.downvoted =!postComponent.downvoted;
+        postComponent.upvoted = false;
+        postComponent.postdata.votes = response.count;
+      })
+    },
   },
   computed: {
     link: function() {
-      return '/p/'+this.post.slug;
+      return '/p/'+this.postdata.slug;
     },
     votes: function () {
-      this.post.votes = this.post.votes || 0;
+      this.postdata.votes = this.postdata.votes || 0;
       if (this.upvoted) {
-        return this.post.votes + 1;
+        return this.postdata.votes + 1;
       } else if (this.downvoted) {
-        return this.post.votes - 1;
+        return this.postdata.votes - 1;
       } else {
-        return this.post.votes;
+        return this.postdata.votes;
       }
     }
   }
