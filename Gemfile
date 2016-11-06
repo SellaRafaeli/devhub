@@ -28,6 +28,7 @@ gem 'faker'
 gem 'bcrypt'
 gem 'paypal-sdk-adaptivepayments'
 gem 'twilio-ruby'
+gem 'postmark'
 #gem 'base62' #allows compression of mongo ids
 
 group :development, :test do
