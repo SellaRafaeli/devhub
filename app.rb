@@ -29,7 +29,7 @@ require_all './mw'
 include Helpers #makes helpers globally available 
 
 get '/ping' do
-  {msg: "pong from #{$app_name}", val: 123}
+  {msg: "pong from #{$app_name}", val: 'CarWaiting (is the new TrainSpotting)'}
 end
 
 get '/' do
