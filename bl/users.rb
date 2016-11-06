@@ -24,7 +24,7 @@ post '/update_user' do
 	{user: user}
 end
 
-post '/register' do
+post '/register' do 
   user_params = params.just(:email, :first_name, :last_name, :desc)
   user = $users.add(user_params)
   session[:user_id] = user['_id']

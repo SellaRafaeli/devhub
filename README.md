@@ -4,19 +4,13 @@ devForum
 * trello: https://trello.com/b/6M1lt9Sn/devhub
 * github: https://github.com/sellarafaeli/devhub
 
-Tasks
-=====
-
-Sella's notes:
-  - move things to Trello
-  - if signed out and try to upvote... do something. not yet sure what. 
-
 Phase 1:
 ========
 
+- copy all tasks to trello 
+
 me.erb:
 -- if ANY ERROR, WRITE: UPDATE DETAILS (OR ALL THE TIME ANYWAY)
-
 
   - allow submitting only if all fields are filled, and allow only passwords of 3 characters or more. Show appropriate error messages. 
   - make the 'submit' method send it by AJAX (use jquery's $), and show some success message or error message (not by alert, but by some <div> that will be hidden or shown with a v-show). 
@@ -27,8 +21,8 @@ submit post page:
 Phase 2: 
 ========
 - we'll build a user page. 
-  - let each user choose their username. By default (on registration), set it to their email's login (the part before the @), but verify it exists. You can do this using 'get_unique_slug' from mongo.rb which is designed to do just this. It should also be editable via the '/me' route. 
-  - for each post/comment, show the submitter username. 
+  - let each user choose their username. You can do this using 'get_unique_slug' from mongo.rb which is designed to do just this. It should be editable via the '/me' route. 
+  - for each post/comment, show the submitter username (instead of the ID). 
   - From each comment (in a single_post page) and from each post (in the homepage) we should link the submitter username of the post/comment to his/her user page.
   - make /u/:username lead to a user.erb page. 
   - serve this page from users/user.erb. Display the user's name, and display a list of all the posts he wrote as well as all the comments he ever wrote. (Note this should be reusing the techniques we saw in homepage.erb and single_post.erb, and should be rendering the posts and comments as variables of a VueJS VM, and not by server-side rendering.) Each post should link to the related post page, each comment should lead to the page of that comment's post. 
@@ -36,6 +30,8 @@ Phase 2:
 
 In the future:
 ==============
+- let each user upload a profile picture (we will use filestack for this)
+
 * Turbolinks 
 * Set up email sending, email a sign-in link for forgot password 
 
