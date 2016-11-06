@@ -8,6 +8,9 @@ Phase 1:
 
 
 me.erb:
+-- if ANY ERROR, WRITE: UPDATE DETAILS (OR ALL THE TIME ANYWAY)
+
+
   - allow submitting only if all fields are filled, and allow only passwords of 3 characters or more. Show appropriate error messages. 
   - make the 'submit' method send it by AJAX (use jquery's $), and show some success message or error message (not by alert, but by some <div> that will be hidden or shown with a v-show). 
 

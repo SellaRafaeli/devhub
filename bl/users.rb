@@ -18,8 +18,14 @@ get '/me' do
   to_page(:'users/me')
 end
 
+post '/update_user' do
+	user_params = params.just(:email, :first_name, :last_name, :desc)
+	user = $users.update_id(cuid, user_params)
+	{user: user}
+end
+
 post '/register' do
-  user_params = params.just(:email, :password, :first_name, :last_name, :desc)
+  user_params = params.just(:email, :first_name, :last_name, :desc)
   user = $users.add(user_params)
   session[:user_id] = user['_id']
   {user: user}
