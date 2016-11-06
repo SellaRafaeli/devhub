@@ -40,7 +40,7 @@ var app = new Vue({
     submitDetails () { 
       alert('submitting details...')
       var my_user = this;
-      $.post("/register", {email: this.email, first_name: this.first_name, last_name: this.last_name, desc: this.desc})
+      $.post("/update_user", {email: this.email, first_name: this.first_name, last_name: this.last_name, desc: this.desc})
         .success(function(response){
           my_user.success = response;// my_user.push(response);
           return
