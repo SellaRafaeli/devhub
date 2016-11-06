@@ -1,11 +1,18 @@
 devForum
 ======== 
+
+* trello: https://trello.com/b/6M1lt9Sn/devhub
+* github: https://github.com/sellarafaeli/devhub
+
 Tasks
 =====
+
+Sella's notes:
+  - move things to Trello
+  - if signed out and try to upvote... do something. not yet sure what. 
+
 Phase 1:
 ========
-
-
 
 me.erb:
   - allow submitting only if all fields are filled, and allow only passwords of 3 characters or more. Show appropriate error messages. 
