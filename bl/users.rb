@@ -25,6 +25,7 @@ post '/update_user' do
 end
 
 post '/register' do 
+  return false #should be just for admin 
   user_params = params.just(:email, :first_name, :last_name, :desc)
   user = $users.add(user_params)
   session[:user_id] = user['_id']
