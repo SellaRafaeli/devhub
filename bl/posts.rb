@@ -29,7 +29,7 @@ post '/submit' do
   data[:user_id] = cuid
   data[:slug]    = get_unique_slug($posts, :slug, data[:title])
   post = $posts.add(data)
-  redirect "/p/#{post[:slug]}"
+  {post:post, redirect: "/p/#{post[:slug]}"}
 end
 
 get '/p/:post_slug' do

@@ -281,8 +281,6 @@ function appendImgInput(event) {
   $("#profile_pic_input").val(event.fpfile.url);
   $("#profile_pic_img").attr('src',(event.fpfile.url));
 }
-console.log("done running main.js");
-
 
 function back_button(event) {
 	try {

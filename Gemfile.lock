@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     activesupport (4.0.0)
       i18n (~> 0.6, >= 0.6.4)
@@ -178,9 +178,6 @@ DEPENDENCIES
   sinatra-reloader
   tux
   twilio-ruby
-
-RUBY VERSION
-   ruby 2.2.4p230
 
 BUNDLED WITH
    1.12.5
