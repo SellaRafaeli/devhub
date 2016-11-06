@@ -26,12 +26,11 @@ Phase 2:
   - From each comment (in a single_post page) and from each post (in the homepage) we should link the submitter username of the post/comment to his/her user page.
   - make /u/:username lead to a user.erb page. 
   - serve this page from users/user.erb. Display the user's name, and display a list of all the posts he wrote as well as all the comments he ever wrote. (Note this should be reusing the techniques we saw in homepage.erb and single_post.erb, and should be rendering the posts and comments as variables of a VueJS VM, and not by server-side rendering.) Each post should link to the related post page, each comment should lead to the page of that comment's post. 
+- add 'login' link in header which opens a form which sends a sign-in link to user's email (if they're already registerd). If not registered, just tell them not registered. All with AJAX and Vue of course. 
 
 
-In the future:
-==============
-- let each user upload a profile picture (we will use filestack for this)
-
+In the Future
+=============
 * Turbolinks 
 * Set up email sending, email a sign-in link for forgot password 
 
