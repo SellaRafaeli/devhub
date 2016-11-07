@@ -46,6 +46,9 @@ Vue.component('post-component', {
     link: function() {
       return '/p/'+this.postdata.slug;
     },
+    user_link: function() {
+      return '/u/'+ this.postdata.username;
+    },
     votes: function () {
       this.postdata.votes = this.postdata.votes || 0;
       if (this.upvoted) {
