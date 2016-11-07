@@ -1,10 +1,12 @@
 <div id='submit_post_page'>
   <h1> Submit Post </h1>
 
-  <form action='submit' method='post'>
-    <input class='form-control' name='url' placeholder='url' v-model=url>
+  <form method="post" @submit.prevent='submitPost'>
+    <input class='form-control' name='url' placeholder='url (http://...)' v-model=url>
     <input class='form-control' name='title' placeholder='title' v-model=title>
     <button class='btn' :disabled=!allowSubmit type='submit'> Submit </button>
+    <span class=errMsg> {{errMsg}} </span>
+    <div v-if="post_success">Thanks for submitting details</div>
   </form>
 </div>
 
@@ -14,10 +16,27 @@ var app = new Vue({
   data: {
     url: '',
     title: '',
+    post_success:false,
   },
   computed: {
     allowSubmit: function() { return this.url && this.title; },
+    errMsg: function () {
+      if (!this.url.startsWith("http://")) return 'Please enter a proper URL';
+      if (this.title.length < 6) return 'Title must be at least 6 characters long';
+    }
   },
+methods: {
+    submitPost() { 
+      alert('submitting post...')
+      var my_post = this;
+      $.post("/submit", {url: this.url, title: this.title})
+        .success(function(response){
+          my_post.post_success = response.post;
+          window.location="http://localhost:9090" + response.redirect;
+          return
+      })
 
+    }
+  }
 })
 </script>

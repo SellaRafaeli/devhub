@@ -10,7 +10,7 @@ var cu = <%= cu.to_json || {} %>
     <input name=last_name placeholder='Last Name' v-model=last_name>
     <input name=desc placeholder='Position' v-model=desc>
     
-    <button class='btn' type=submit>Submit</button>
+    <button class='btn' :disabled=!allowSubmit type=submit>Submit</button>
     <span class=errMsg> {{errMsg}} </span>
     <div v-if="success">Thanks for submitting details</div>
   </form>
@@ -42,7 +42,7 @@ var app = new Vue({
       var my_user = this;
       $.post("/update_user", {email: this.email, first_name: this.first_name, last_name: this.last_name, desc: this.desc})
         .success(function(response){
-          my_user.success = response;// my_user.push(response);
+          my_user.success = response;
           return
       })
 

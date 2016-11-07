@@ -11,9 +11,8 @@ Phase 1:
 
 me.erb:
 -- if ANY ERROR, WRITE: UPDATE DETAILS (OR ALL THE TIME ANYWAY)
+ 
 
-  - allow submitting only if all fields are filled, and allow only passwords of 3 characters or more. Show appropriate error messages. 
-  - make the 'submit' method send it by AJAX (use jquery's $), and show some success message or error message (not by alert, but by some <div> that will be hidden or shown with a v-show). 
 
 submit post page:
   - allow only submissions of things that are actually URLs (just check that it starts with http), and a title of at least 6 characters. Show appropriate error messages. 
@@ -56,3 +55,8 @@ single_post:
   - display the number of upvotes. 
 
   - when adding a new comment, instead of refreshing the page, send it with an AJAX (via a method call from the Vue VM) and then push it into the data.comments. 
+
+
+  - allow submitting only if all fields are filled, and allow only passwords of 3 characters or more. Show appropriate error messages.
+
+    - make the 'submit' method send it by AJAX (use jquery's $), and show some success message or error message (not by alert, but by some <div> that will be hidden or shown with a v-show). 
