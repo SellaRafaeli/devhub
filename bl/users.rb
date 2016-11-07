@@ -2,8 +2,10 @@ $users = $mongo.collection('users')
 
 get '/u/:username' do
   post = $posts.get(username: params[:username])
-  to_page :'users/user_page', locals: {cu: cu}
+  user = $users.get(username: params[:username])
+  to_page :'users/userpage', locals: {user: user}
 end
+
 
 
 get '/register' do 
