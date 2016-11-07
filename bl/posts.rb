@@ -15,6 +15,7 @@ get '/posts/homepage' do
   posts.map! {|post| post[:comments_count] = comments_count(post)
     post[:votes] =  votes_count(post);
     post[:i_upvoted] = cuid && user_upvoted_post?(cuid, post[:_id])
+    post[:username] = $users.get(_id:post[:user_id])[:username]
     post}
   {postsArray: posts}
 end

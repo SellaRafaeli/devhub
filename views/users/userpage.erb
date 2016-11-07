@@ -4,11 +4,11 @@
 </script>
 
 <div id='single_post_page'>
-  <h1> Single Post </h1>
+  <h1> My posts</h1>
   <h2> {{post.title}} </h2>
   <h3> {{post.url}} </h3>
 
-  <h4> Comments </h4>
+  <h4> My Comments </h4>
   <div class="container-fluid">
     <ul class="list-group">
       <comment v-for="comment in comments" :comment="comment"></comment>
@@ -16,9 +16,6 @@
   </div>
 
   <form method="post" @submit.prevent='addComment'>
-  <a :href="link">{{cu.username}}</a>
-<!--   <a :href="/u/{{cu.username}}">{{cu.username}}</a> -->
-<!--   <a href="/u/{{cu.username}}">{{cu.username}}</a> -->
 <!--     <input type=zhidden v-model="cu.username"> -->
     <input type="text" placeholder="Your comment" v-model="new_comment_text"/>
     <button class="tiny radius" type=submit>Submit</button>
@@ -42,14 +39,11 @@
           single_post.comments.push(response.comment);
         return
       })
- 
+
+        
+        
       }
-    },
-  computed: {
-    link: function() {
-      return '/u/'+ this.cu.username;
-    },
-  }
+    }
   });
 </script>
 

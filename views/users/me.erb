@@ -9,6 +9,7 @@ var cu = <%= cu.to_json || {} %>
     <input name=first_name placeholder='First Name' v-model=first_name>
     <input name=last_name placeholder='Last Name' v-model=last_name>
     <input name=desc placeholder='Position' v-model=desc>
+    <input name=username placeholder='Username' v-model=username>
     
     <button class='btn' :disabled=!allowSubmit type=submit>Submit</button>
     <span class=errMsg> {{errMsg}} </span>
@@ -26,6 +27,7 @@ var app = new Vue({
     first_name: cu["first_name"],
     last_name: cu["last_name"],
     desc: cu["desc"],
+    username: cu["username"] || cu["email"],
     success:false,
   },
   computed: {
@@ -40,7 +42,7 @@ var app = new Vue({
     submitDetails () { 
       alert('submitting details...')
       var my_user = this;
-      $.post("/update_user", {email: this.email, first_name: this.first_name, last_name: this.last_name, desc: this.desc})
+      $.post("/update_user", {email: this.email, first_name: this.first_name, last_name: this.last_name, desc: this.desc, username:this.username})
         .success(function(response){
           my_user.success = response;
           return
