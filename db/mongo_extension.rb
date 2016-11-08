@@ -56,10 +56,11 @@ class Mongo::Collection
   def get_with(crit_or_id, other_coll, opts = {})
     join_mongo_colls(self, crit_or_id, other_coll, {})
   end
-
+  
   #create
   def add(doc)
-    doc[:_id] ||= nice_id
+    doc_id = (self.count < 1000) ? small_id : nice_id
+    doc[:_id] ||= doc_id
     doc[:created_at] = Time.now
     self.insert_one(doc)
     doc.hwia
@@ -96,3 +97,7 @@ end
     mongo_coll_keys(self)
   end  
 end #end Mongo class 
+
+get '/mongo/extension/refresh_this_file' do 
+  'refresh_this_file'
+end

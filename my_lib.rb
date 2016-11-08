@@ -47,9 +47,17 @@ def either(val1,val2 = nil)
   val1.present? ? val1 : val2
 end
 
+def small_id(size = 4)
+  #(0..size - 1).to_a.map { [*('a'..'z'),*('0'..'9')].sample }.join
+  nums  = ('0'..'9').to_a
+  chars = ('a'..'z').to_a
+  [nums.sample, nums.sample, nums.sample, chars.sample, chars.sample].join
+end
+
 def nice_id
     #return rand(Time.now.to_i*100).to_s(36)
     SecureRandom.urlsafe_base64(7,false)
+    #small_id(10)
 end
 
 ## Time 

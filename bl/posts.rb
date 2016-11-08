@@ -24,10 +24,10 @@ get '/posts/homepage' do
   posts.map! {|post| post[:comments_count] = comments_count(post)
     post[:votes] =  votes_count(post);
     post[:i_upvoted] = cuid && user_upvoted_post?(cuid, post[:_id])
-    username = $users.get(_id:post[:user_id])
-    post[:username] = username[:username] if username
-    post}
-
+    post[:username]  = $users.get(_id: post[:user_id])[:username] rescue nil
+    post[:username] ||= 'anonymous'
+    post 
+  }
   {postsArray: posts}
 end
 
