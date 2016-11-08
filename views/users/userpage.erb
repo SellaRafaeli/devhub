@@ -1,35 +1,49 @@
 <script> 
-var user = <%= user.to_json || {} %>
+  var user = <%= user.to_json || {} %>
 </script>
 
 <div id='userpage'>
   <h1> User <b>{{username}}<b> </h1>
-  <h1> My posts </h1>
+  <h4> My posts </h4>
   <div class="container-fluid">
     <ul class="list-group">
       <post-component v-for="postItem in postsList" v-bind:postdata="postItem"></post-component>
     </ul>
   </div>
+
+
+  <h4> My comments</h4>
+
+  <div class="container-fluid">
+    <ul class="list-group">
+      <comment v-for="comment in commentsList" :comment="comment"></comment>
+    </ul>
+  </div>
 </div>
 
-  <h1> My comments</h1>
-
 <script>
-var userpage = new Vue({
-  el: "#userpage",
-  data: {
-    username: user["username"],
-    user_id: user["_id"],
-    postsList: [],
-  }
-});
+  var userpage = new Vue({
+    el: "#userpage",
+    data: {
+      username: user["username"],
+      user_id: user["_id"],
+      postsList: [],
+      commentsList: [,]
+    }
+  });
 
-$.get('/my_posts?user_id=' + userpage.user_id).success(function(res) {
+  $.get('/my_posts?user_id=' + userpage.user_id).success(function(res) {
   // userpage.postsList = res.user;
   userpage.postsList = res.postsArray;
-
 })  
+
+  $.get('/my_comments?user_id=' + userpage.user_id).success(function(res) {
+  // userpage.postsList = res.user;
+  userpage.commentsList = res.comments;
+}) 
+
 
 </script>
 
 <script src='/js/components/post.js'></script>
+<script src='/js/components/comment.js'></script>

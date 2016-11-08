@@ -16,6 +16,7 @@
     <i class="glyphicon glyphicon-chevron-up" @click="upvote" :class="{disabled: upvoted}"></i>
     <span class="label label-primary">{{ comment.votes }}</span>
 <!--     <i class="glyphicon glyphicon-chevron-down" @click="downvote" :class="{disabled: downvoted}"></i> -->
-    <span>{{ comment.text }}</span>
+    <span>{{ comment.text }}</span></div>
+   <div> <a :href="comment_link">see post</a></div>
   </li>
 </template>

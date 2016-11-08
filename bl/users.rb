@@ -33,7 +33,7 @@ post '/update_user' do
 end
 
 post '/register' do 
-  return false #should be just for admin 
+  return false #should be available only for admin 
   user_params = params.just(:email, :first_name, :last_name, :desc)
   user_params[:username] =  get_unique_slug($users, :username, params[:email].split("@").first)
   user = $users.add(user_params)

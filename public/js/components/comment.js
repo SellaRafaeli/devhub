@@ -44,6 +44,10 @@ Vue.component('comment', {
     },
   },
   computed: {
+    comment_link: function() {
+      return '/c/'+ this.comment._id;
+    },
+
     votes: function () {
       this.comment.votes = this.comment.votes || 0;
       if (this.upvoted) {

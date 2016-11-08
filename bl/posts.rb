@@ -20,12 +20,14 @@ end
 
 get '/posts/homepage' do
   # return flag if cu upvoted post
-  posts = $posts.find.sort({created_at: -1}).limit(10).to_a
+  posts = $posts.find.sort({created_at: -1}).limit(100).to_a
   posts.map! {|post| post[:comments_count] = comments_count(post)
     post[:votes] =  votes_count(post);
     post[:i_upvoted] = cuid && user_upvoted_post?(cuid, post[:_id])
-    post[:username] = $users.get(_id:post[:user_id])[:username]
+    username = $users.get(_id:post[:user_id])
+    post[:username] = username[:username] if username
     post}
+
   {postsArray: posts}
 end
 
@@ -46,5 +48,3 @@ get '/p/:post_slug' do
   post = $posts.get(slug: params[:post_slug])
   to_page :'posts/single_post', locals: {post: post}
 end
-
-#  comments = $comments.find(post_id: post[:_id])
