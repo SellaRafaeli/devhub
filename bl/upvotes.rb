@@ -54,26 +54,33 @@ post '/post_downvote' do
 end
 
 def votes_count(post)
-  upvotes = $post_upvotes.find(post_id: post[:_id]).count
-  downvotes = $post_downvotes.find(post_id: post[:_id]).count
+  upvotes = $post_upvotes.find(post_id: post[:_id]) 
+  downvotes = $post_upvotes.find(post_id: post[:_id])
+  upvotes = upvotes.count if upvotes
+  downvotes =  downvotes.count if downvotes 
   vote = upvotes# - downvotes
 end
 
 def comment_votes_count(comment)
-  upvotes = $comment_upvotes.find(comment_id: comment[:_id]).count
-  downvotes = $comment_downvotes.find(comment_id: comment[:_id]).count
+  upvotes = $comment_upvotes.find(comment_id: comment[:_id])
+  downvotes = $comment_downvotes.find(comment_id: comment[:_id])
+  upvotes = upvotes.count if upvotes
+  downvotes =  downvotes.count if downvotes 
   vote = upvotes
 end
 
 def comment_votes_count_id()
-	count = $comment_upvotes.find(comment_id: params[:comment_id]).count
-	count
+	comments_count = $comment_upvotes.find(comment_id: params[:comment_id])
+	comments_count = comments_count.count if comments_count
+	comments_count
   #downvotes = $comment_downvotes.find(comment_id: params[:comment_id]).count
 end
 
 
 def votes_count_id()
-  upvotes = $post_upvotes.find(post_id: params[:post_id]).count
-  downvotes = $post_downvotes.find(post_id: params[:post_id]).count
+  upvotes = $post_upvotes.find(post_id: params[:post_id])
+  downvotes = $post_downvotes.find(post_id: params[:post_id])
+   upvotes = upvotes.count if upvotes
+  downvotes =  downvotes.count if downvotes
   vote = upvotes# - downvotes
 end

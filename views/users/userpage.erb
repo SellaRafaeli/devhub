@@ -1,49 +1,49 @@
-<script src='/js/components/comment.js'></script>
-<script>
-  var postData = <%= single_post_page_data(post).to_json %>
+<script> 
+  var user = <%= user.to_json || {} %>
 </script>
 
-<div id='single_post_page'>
-  <h1> My posts</h1>
-  <h2> {{post.title}} </h2>
-  <h3> {{post.url}} </h3>
-
-  <h4> My Comments </h4>
+<div id='userpage'>
+  <h1> User <b>{{username}}<b> </h1>
+  <h4> My posts </h4>
   <div class="container-fluid">
     <ul class="list-group">
-      <comment v-for="comment in comments" :comment="comment"></comment>
+      <post-component v-for="postItem in postsList" v-bind:postdata="postItem"></post-component>
     </ul>
   </div>
 
-  <form method="post" @submit.prevent='addComment'>
-<!--     <input type=zhidden v-model="cu.username"> -->
-    <input type="text" placeholder="Your comment" v-model="new_comment_text"/>
-    <button class="tiny radius" type=submit>Submit</button>
-  </form>
+
+  <h4> My comments</h4>
+
+  <div class="container-fluid">
+    <ul class="list-group">
+      <comment v-for="comment in commentsList" :comment="comment"></comment>
+    </ul>
+  </div>
 </div>
 
 <script>
-  var vm = new Vue({
-    el: "#single_post_page",
+  var userpage = new Vue({
+    el: "#userpage",
     data: {
-      cu: postData.cu,
-      post: postData.post,
-      comments: postData.comments,
-      new_comment_text: "",
-    },
-    methods: {
-      addComment: function (argument) {
-        var single_post = this;
-        $.post("/comments/submit", {post_id: this.post._id, text: this.new_comment_text})
-        .success(function(response){
-          single_post.comments.push(response.comment);
-        return
-      })
-
-        
-        
-      }
+      username: user["username"],
+      user_id: user["_id"],
+      postsList: [],
+      commentsList: [,]
     }
   });
+
+  $.get('/my_posts?user_id=' + userpage.user_id).success(function(res) {
+  // userpage.postsList = res.user;
+  userpage.postsList = res.postsArray;
+})  
+
+  $.get('/my_comments?user_id=' + userpage.user_id).success(function(res) {
+  // userpage.postsList = res.user;
+  userpage.commentsList = res.comments;
+}) 
+
+
 </script>
 
+<script src='/js/components/post.js'></script>
+<script src='/js/components/comment.js'></script>

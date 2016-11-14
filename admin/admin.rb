@@ -1,4 +1,4 @@
-MANAGEABLE_COLLECTIONS = [:users,:contact_supplier,:contact_us,:errors, :sms_messages, :quotes]
+MANAGEABLE_COLLECTIONS = [:users,:emails,:posts,:comments, :upvotes]
 #MANAGEABLE_COLLECTIONS+=[:requests]
 MANAGEABLE_COLLECTIONS.map! {|n| $mongo.collection(n) }
 
@@ -16,34 +16,15 @@ get '/admin/remove_fake_users' do
   {msg: "removed faker users"}
 end
 
-get "/admin_set_cookie" do 
-  if params[:monster] == "cookie"
-    cookies[:admin_cookie] = 'cookiemonster'
-    redirect to('/')
-  end
-end
-
 def is_admin(user = cu)
   false
 rescue 
   false
 end
 
-get '/admin/login' do
-  session[:user_id] = params['_id']
-  user = $users.get(_id:params['_id'])
-  user_name = user["name"]
-  flash.message = t('you_are_logged_in_as') + user_name
-  redirect '/' 
-end
-
 get '/admin' do
   #to_page(:"admin/dashboard")
   redirect '/admin/manage/users'
-end
-
-get '/admin/api_spec' do
-  erb :"admin/api_spec", default_layout
 end
 
 get "/admin/manage/:coll" do 
@@ -62,9 +43,6 @@ def verify_admin_val(collection, field, val)
   #   if field == 'something'
   #     halt_bad_input(msg: 'Bad input')
 
-  if field == 'latitude' || field == 'longitude'
-      val = val.to_f
-  end
   val
 end
 
