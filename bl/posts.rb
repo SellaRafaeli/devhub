@@ -2,9 +2,12 @@ $posts = $mongo.collection('posts')
 
 def single_post_page_data(post)
   comments = $comments.find(post_id: post[:_id]).to_a || []
-  comments.map! {|comment| comment[:votes] = comment_votes_count(comment)
-  comment[:i_upvoted] = cuid && user_upvoted_comment?(cuid, comment[:_id])
-  comment} if comments.length > 1
+  if comments.length > 1 
+    comments.map! {|comment| comment[:votes] = comment_votes_count(comment)
+    comment[:i_upvoted] = cuid && user_upvoted_comment?(cuid, comment[:_id])
+    comment[:username] =  $users.get(_id:comment[:user_id])[:username]
+    comment} 
+  end
   {cu:cu, post: post, comments: comments}
 end
 

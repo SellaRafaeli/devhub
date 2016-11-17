@@ -17,39 +17,10 @@
 
   <form method="post" @submit.prevent='addComment'>
   <a :href="link">{{cu.username}}</a>
-<!--   <a :href="/u/{{cu.username}}">{{cu.username}}</a> -->
-<!--   <a href="/u/{{cu.username}}">{{cu.username}}</a> -->
-<!--     <input type=zhidden v-model="cu.username"> -->
     <input type="text" placeholder="Your comment" v-model="new_comment_text"/>
     <button class="tiny radius" type=submit>Submit</button>
   </form>
 </div>
 
-<script>
-  var vm = new Vue({
-    el: "#single_post_page",
-    data: {
-      cu: postData.cu,
-      post: postData.post,
-      comments: postData.comments,
-      new_comment_text: "",
-    },
-    methods: {
-      addComment: function (argument) {
-        var single_post = this;
-        $.post("/comments/submit", {post_id: this.post._id, text: this.new_comment_text})
-        .success(function(response){
-          single_post.comments.push(response.comment);
-        return
-      })
- 
-      }
-    },
-  computed: {
-    link: function() {
-      return '/u/'+ this.cu.username;
-    },
-  }
-  });
-</script>
+<script src='/js/posts/single_post.js'></script>
 

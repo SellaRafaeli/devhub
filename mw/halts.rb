@@ -20,7 +20,7 @@ end
 
 def require_user
   if !cu 
-  	redirect "/log_in"
+  	redirect "/login"
   end
   halt_bad_input({msg:"you were blocked"}) if cu[:blocked]
 end

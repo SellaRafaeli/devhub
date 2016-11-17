@@ -1,5 +1,4 @@
-<div id='login'>
-	<div v-if="error">{{error}}</div>
+<div id='login_error'>
 	<h1> Please enter your email to get a sign in link</h1>
 <form method="post" @submit.prevent='loginRequest'>
 	<input type="email" placeholder="email" v-model="email"/>
@@ -10,8 +9,3 @@ In the meanwhile, you can look at this adorable kitten</div>
 <div v-if="submit_failure">{{errMsg}}</div>
 <div v-if="kitten"><img src="https://placekitten.com/500/500" alt="kitten"></div>
 </div>
-
-<script src='/js/login/login.js'></script>
-<!-- <script src='/js/login/login.js'></script> -->
-
-
