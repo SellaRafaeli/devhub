@@ -1,3 +1,5 @@
+.noDisplay {display: none}
+.pntr {cursor: pointer;}  
 .errMsg { 
   color: darkred;
 }

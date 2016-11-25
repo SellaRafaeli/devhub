@@ -12,7 +12,6 @@ def user_upvoted_comment?(user_id, comment_id)
 	$comment_upvotes.exists?(user_id:user_id, comment_id:comment_id)
 end
 
-
 post '/post_upvote' do
   require_user
   user_id = cuid || params[:user_id]
@@ -44,7 +43,6 @@ post '/comment_unupvote' do
   {count:count}
 end
 
-
 post '/post_downvote' do
   require_user
   $post_downvotes.add(post_id: params[:post_id], user_id:cuid)
@@ -54,11 +52,11 @@ post '/post_downvote' do
 end
 
 def votes_count(post)
-  upvotes = $post_upvotes.find(post_id: post[:_id]) 
+  upvotes   = $post_upvotes.find(post_id: post[:_id]) 
   downvotes = $post_upvotes.find(post_id: post[:_id])
-  upvotes = upvotes.count if upvotes
-  downvotes =  downvotes.count if downvotes 
-  vote = upvotes# - downvotes
+  upvotes   = upvotes.count if upvotes
+  downvotes = downvotes.count if downvotes 
+  vote      = upvotes# - downvotes
 end
 
 def comment_votes_count(comment)
@@ -76,11 +74,10 @@ def comment_votes_count_id()
   #downvotes = $comment_downvotes.find(comment_id: params[:comment_id]).count
 end
 
-
 def votes_count_id()
   upvotes = $post_upvotes.find(post_id: params[:post_id])
   downvotes = $post_downvotes.find(post_id: params[:post_id])
-   upvotes = upvotes.count if upvotes
+  upvotes = upvotes.count if upvotes
   downvotes =  downvotes.count if downvotes
   vote = upvotes# - downvotes
 end

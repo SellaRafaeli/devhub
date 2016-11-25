@@ -21,7 +21,7 @@ var app = new Vue({
   computed: {
     allowSubmit: function() { return this.url && this.title; },
     errMsg: function () {
-      if (!this.url.startsWith("http://")) return 'Please enter a proper URL';
+      if (!this.url.startsWith("http")) return 'Please enter a proper URL';
       if (this.title.length < 6) return 'Title must be at least 6 characters long';
     }
   },

@@ -1,0 +1,26 @@
+<%
+  user = $users.get(comment[:user_id])
+  com  = comment
+  cid  = comment['_id']
+  depth||=0
+  sons = $comments.get_many(parent_id: com['_id']) || []
+%>
+<div class='comment' style='margin-left:<%=depth*40%>px'>
+  <a href='/u/<%= user['_id'] %>'><%=user['name'] || user['_id']%></a>
+  <small><%= com[:created_at] %> c</small>
+  <div> <%= com[:text] %> </div> 
+  <strong onclick=$(".reply-<%=cid%>").toggle() class='pntr'> reply </strong>
+  <form class='noDisplay reply-<%=cid%>' onsubmit='submitComment(this); return false;'>
+    <input type='hidden' name='parent_id' value=<%=cid%>>
+    <input type='hidden' name='post_id' value=<%=post['_id']%>>
+    <textarea name='text' onkeydown=suggestLogin()></textarea>
+    <button>submit</button>
+  </form>
+
+  <div class='sons_of_comment_<%=cid%>'>
+  <% sons.each do |son |%>
+  <%#= son.to_json %>
+    <%= erb :'comments/single_comment', locals: {comment: son, post: post, depth: depth+1} %>
+  <% end %>
+  </div>
+</div>

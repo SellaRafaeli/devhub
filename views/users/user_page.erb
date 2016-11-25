@@ -1,0 +1,27 @@
+<%
+  posts    = $posts.get_many(user_id: user['_id'])
+  comments = $comments.get_many(user_id: user['_id'])
+%>
+
+<div id='user_page'>
+  <h2> user page: <%= user['name'] %></h2>
+
+  <section> 
+    <h3> Posts </h3> 
+    <% posts.each do |post| %>
+      <%= erb :'posts/single_post', locals: {post: post} %>
+    <% end %>
+  </section>
+  
+  <section> 
+    <h3> Comments </h3>
+    <ul class="list-group">
+      <% comments.each do |comment| %>
+        <%
+          post = $posts.get(comment['post_id'])
+        %>
+        <%= erb :'comments/single_comment', locals: {comment: comment} %>
+      <% end %>
+    </ul>
+  </section>
+</div>

@@ -1,16 +1,13 @@
-<h1> Welcome to devForum.</h1>
-
 <!-- https://coligo.io/vuejs-components/ -->
 
 <div id="app">
-<!-- 	<input v-model=foo />
-	<div> {{foo}} </div> -->
   <div class="container-fluid">
     <ul class="list-group">
-      <post-component v-for="postItem in postsList" v-bind:postdata="postItem"></post-component>
+      <% homepage_posts.each do |post| %>
+        <%= erb :'posts/single_post', locals: {post: post} %>
+      <% end %>
     </ul>
   </div>
 </div>
 
-<script src='/js/components/post.js'></script>
-<script src='/js/homepage/homepage.js'></script>
+<!-- <script src='/js/homepage/homepage.js'></script> -->

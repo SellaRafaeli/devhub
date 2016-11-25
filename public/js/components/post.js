@@ -8,8 +8,9 @@ Vue.component('post-component', {
     };
   },
   methods: {
-
     upvote: function () {
+      return suggestLogin();
+
       var postComponent = this;
       if (!this.upvoted) { 
       $.post("/post_upvote", {post_id: this.postdata._id})
@@ -28,11 +29,10 @@ Vue.component('post-component', {
         postComponent.postdata.votes = response.count;
       });
     }
-
-
     },
-
     downvote: function () {
+      return suggestLogin();
+      
       var postComponent = this;
       $.post("/post_downvote", {post_id: this.postdata._id})
       .success(function(response){
