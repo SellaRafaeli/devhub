@@ -3,16 +3,22 @@ $users = $mongo.collection('users')
 namespace '/users' do
 
   get '/' do
-    {user: $users.all}
+    $users.all
+  end
+
+  get '/me' do
+    user
   end
 
   get '/:_id' do
-    {user: $users.get(params[:_id])}
+    $users.get(params[:_id])
   end  
 
-  # post '/login' do
-  #   {user: $users.get(params[:_id])}
-  # end  
+  post '/login' do
+    user = $users.get(login_token: params[:login_token])
+    user = $users.get(params[:_id]) if params[:_id]
+    user
+  end  
 
 end # end /users
 
