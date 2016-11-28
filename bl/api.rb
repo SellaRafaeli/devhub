@@ -7,7 +7,6 @@ def ns(url,&block)
   get_or_post("api/:type/#{url}",&block)
 end
 
-
 namespace '/api/:type' do    
   #read
   get '' do 
@@ -39,6 +38,7 @@ namespace '/api/:type' do
   #create
   post '/' do
     set_api_fields 
+    halt_forbidden if @cn == 'users' #can't create other users
     @coll.add(@data)
   end
   
@@ -70,23 +70,28 @@ def set_api_fields
   if @id 
     @item = @coll.get(@id)      
     halt_no_item if !@item
-    require_owner(@item) if request.request_method == 'POST'
+    if request.request_method == 'POST'
+      require_user 
+      require_owner(@item) 
+      params[:user_id] = cuid unless @cn == 'users'
+    end
   end
 end
 
 def require_owner(item)
   i = item
-  halt_no_permissions if !(cuid.in?[i['_id'], i['user_id']])
+  halt_forbidden if !(cuid.in?[i['_id'], i['user_id']])
 end
 
 ALLOWED_COLL_FIELDS = {
-  users: ['name',  'email','password'],
-  posts: ['title', 'url']
+  users: ['name', 'email'],
+  posts: ['title', 'url'],
+  comments: ['text']
 }.hwia
 
 def allowed_fields(cn_name = nil)
   white_fields = ALLOWED_COLL_FIELDS[cn_name] 
-  white_fields ? params.just(white_fields) : {}
+  white_fields ? params.just(white_fields) : halt(401, {msg: 'Unsupported Resource.'})
 end
 
 def set_random_fields
@@ -95,6 +100,7 @@ def set_random_fields
     params[k] = rand(1000) if v == 'rand'
   }
 end
+
 # route :post, :get, ['/ping2', '/ping3'] do
 #   {ping23: true}
 # end
@@ -102,4 +108,3 @@ end
 # get '/ping5', '/ping6' do
 #   {ping6: 'ok'}
 # end
-

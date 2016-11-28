@@ -42,9 +42,14 @@ before do
   @time_started_request = Time.now    
 end
 
+def request_header(name)
+  request.env['HTTP_'+name.to_s]
+end
+
 def cu_token
-   params && params[:token] && $users.get(token: params[:token]) rescue nil #for tux
-  end
+  token = request_header(:token) || params[:token]
+  $users.get(token: params[:token])
+end
 
 def cu_session
   session && session[:user_id] && $users.get(session[:user_id]) rescue nil #for tux
@@ -55,7 +60,6 @@ def cu
    if request.path_info.starts_with?("/admin")
     @cu = cu_session
    else
-
     @cu = cu_token || cu_session || nil
   end
 end
