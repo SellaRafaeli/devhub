@@ -11,17 +11,18 @@ namespace '/api/:type' do
   #read
   get '' do 
     set_api_fields
-    redirect "/api/#{@cn}/"
+    redirect "/api/#{@cn}/all"
   end
 
   get '/' do     
-    set_api_fields 
-    {num: @coll.count, example: @coll.random}
+    set_api_fields
+    redirect "/api/#{@cn}/all"
   end
 
   get '/all' do 
     set_api_fields 
-    {items: @coll.all}
+    items = @coll.all
+    {num: items.count, items: items}
   end
 
   get '/random/?:num?' do 
@@ -65,7 +66,7 @@ def set_api_fields
   @coll = $mongo.collection(params[:type])
   @cn   = @coll.name
   @id   = params[:_id] 
-  @data = allowed_fields(@cn)
+  @data = coll_fields(@cn)
   set_random_fields
   if @id 
     @item = @coll.get(@id)      
@@ -83,14 +84,14 @@ def require_owner(item)
   halt_forbidden if !(cuid.in?[i['_id'], i['user_id']])
 end
 
-ALLOWED_COLL_FIELDS = {
+COLL_FIELDS = {
   users: ['name', 'email'],
-  posts: ['title', 'url'],
-  comments: ['text']
+  posts: ['title', 'url', 'user_id'],
+  comments: ['text', 'user_id', 'post_id']
 }.hwia
 
-def allowed_fields(cn_name = nil)
-  white_fields = ALLOWED_COLL_FIELDS[cn_name] 
+def coll_fields(cn_name = nil)
+  white_fields = COLL_FIELDS[cn_name] 
   white_fields ? params.just(white_fields) : halt(401, {msg: 'Unsupported Resource.'})
 end
 
