@@ -1,3 +1,11 @@
+def halt_no_item(opts = {})
+  halt(404, {msg: opts[:msg] || "No such item."}) 
+end
+
+def halt_no_permissions(opts = {})
+  halt(401, {msg: opts[:msg] || "You can't do that."}) 
+end
+
 def halt_bad_input(opts = {})
   halt(403, {msg: opts[:msg] || "Bad input."}) 
 end

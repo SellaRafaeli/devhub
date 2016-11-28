@@ -73,3 +73,11 @@ end
 def rand_time(from = 0.0, to = Time.now)
   Time.at(from + rand * (to.to_f - from.to_f))
 end
+
+def rand_str
+  Faker::Hacker.ingverb
+end
+
+def rand_url
+  Faker::Internet.url
+end

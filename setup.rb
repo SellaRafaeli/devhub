@@ -1,6 +1,6 @@
 $prod       = settings.production? #RACK_ENV==production?
 $prod_url   = 'http://cosmeticall.herokuapp.com'
-$root_url   = $prod ? $prod_url : 'http://localhost:9393'
+$root_url   = $prod ? $prod_url : 'http://localhost:9090'
 
 enable :sessions
 set :session_secret, '&a*n31994@'
