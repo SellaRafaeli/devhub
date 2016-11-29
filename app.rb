@@ -32,5 +32,7 @@ get '/ping' do
 end
 
 get '/' do
-  erb :homepage, layout: :layout
+  {msg: 'see /api'
+  #erb :homepage, layout: :layout
+  }
 end

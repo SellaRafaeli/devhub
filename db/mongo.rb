@@ -8,8 +8,8 @@ $mongo = Mongo::Client.new(DB_URI).database
 
 $mongo_data = {}
 
-def page_mongo(collection, crit, opts)
-  default_limit = 20
+def page_mongo(collection, crit = {}, opts = {})
+  default_limit = 5
   sort = Array(opts[:sort])
 
   if opts[:limit] && opts[:skip] 
@@ -26,7 +26,6 @@ def page_mongo(collection, crit, opts)
     limit     = default_limit
     skip      = 0
   end 
-  
   items  = collection.find(crit).limit(limit).skip(skip).sort(sort).to_a
   done   = (skip + limit) >= collection.find(crit).count
   return items, done
@@ -78,3 +77,5 @@ def join_mongo_colls(coll1, id, colls)
   joined = colls.map { |coll| coll.find(fkey => item['_id']).to_a } # [posts, messages]
   return joined.unshift(item) # [user, posts, messages]
 end
+
+get '/db/mongo' do 'refresh' end

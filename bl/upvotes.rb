@@ -1,4 +1,3 @@
-
 $post_upvotes = $mongo.collection('post_upvotes')
 $post_downvotes = $mongo.collection('post_downvotes')
 $comment_upvotes = $mongo.collection('comment_upvotes')
