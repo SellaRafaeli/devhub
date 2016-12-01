@@ -29,6 +29,8 @@ gem 'bcrypt'
 gem 'paypal-sdk-adaptivepayments'
 gem 'twilio-ruby'
 gem 'postmark'
+gem "sinatra-cross_origin", "~> 0.3.1"
+
 #gem 'base62' #allows compression of mongo ids
 
 group :development, :test do

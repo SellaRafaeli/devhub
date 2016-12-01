@@ -8,6 +8,9 @@ set :raise_errors,          false
 set :show_exceptions,       false
 set :erb, :layout =>    false
 
+configure do
+  enable :cross_origin
+end
 
 def bp
   binding.pry

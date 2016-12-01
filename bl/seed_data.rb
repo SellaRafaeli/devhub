@@ -1,5 +1,5 @@
 get '/seed_data' do 
-  return if $prod
+  return 'disabled on prod' if $prod
   $users.delete_many
   $posts.delete_many
   $comments.delete_many

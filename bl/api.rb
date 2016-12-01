@@ -44,7 +44,7 @@ namespace '/api' do
     end
 
     #create
-    post '/' do
+    post '' do
       set_api_fields 
       halt_forbidden if @cn == 'users' #can't create other users
       @coll.add(@data)
@@ -118,6 +118,7 @@ end
 
 def api_get_items(opts = {})
   crit = opts.just(COLL_FILTERABLE_FIELDS[@cn] || [])
+  opts[:sort] ||= [{created_at: -1}]
   page_mongo(@coll, crit, opts)
 end
 
