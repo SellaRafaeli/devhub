@@ -9,7 +9,7 @@ $mongo = Mongo::Client.new(DB_URI).database
 $mongo_data = {}
 
 def page_mongo(collection, crit = {}, opts = {})
-  default_limit = 5
+  default_limit = 20
   sort = Array(opts[:sort])
 
   if opts[:limit] && opts[:skip] 
