@@ -6,6 +6,7 @@ helpers do
   def protected!
     return if authorized?
     return if !$prod
+    return 'disabled'
     headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
     halt 401, "Not authorized\n"
   end
