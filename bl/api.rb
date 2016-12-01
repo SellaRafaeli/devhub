@@ -118,7 +118,6 @@ end
 
 def api_get_items(opts = {})
   crit = opts.just(COLL_FILTERABLE_FIELDS[@cn] || [])
-  bp
   page_mongo(@coll, crit, opts)
 end
 
