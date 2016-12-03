@@ -1,5 +1,15 @@
 $comments = $mongo.collection('comments')
 
+post '/comments' do 
+  params[:user_id] = cuid
+  comment = $comments.add(params.just(:post_id, :text, :user_id))
+end
+
+def map_comment(c) #map_single_comment
+  c[:user] = map_user($users.get(c[:user_id]))
+  c = c.just(:post_id,:text,:user,:created_at)
+end
+
 # post '/comments/submit' do
 #   require_user
 #   data = params.just(:text, :post_id, :parent_id)

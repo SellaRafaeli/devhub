@@ -1,5 +1,38 @@
 $posts = $mongo.collection('posts')
 
+get '/posts' do 
+  crit        = params.just(:user_id)
+  items, done = page_mongo($posts, crit)
+  items       = items.mapf(:map_post)
+  {total: items.count, posts: items, done: done}
+end
+
+get '/posts/:id' do
+  post_id = params[:id] 
+  p = ($posts.get(post_id))
+  p = map_post(p, comments: true)
+end
+
+post '/posts' do 
+  require_user
+  p = $posts.add(params.just(:title, :url))
+  p = map_post(p)
+end
+
+def map_post(p, opts = {})
+  p_id = p['_id']
+  
+  p[:user] = map_user($users.get(p[:user_id]))
+  p[:num_comments] = $comments.find(post_id: p_id).count
+  
+  if opts[:comments]
+    p[:comments] = $comments.all(post_id: p_id).mapf(:map_comment)
+  end
+  
+  p = p.just(:_id, :title, :url, :user, :created_at, :comments, :num_comments)
+  p
+end
+
 # namespace '/posts' do 
 
 #   get '/' do

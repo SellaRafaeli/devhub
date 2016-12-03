@@ -49,7 +49,9 @@ end
 
 def cu_token
   token = request_header(:token) || params[:token]
-  $users.get(token: params[:token])
+  user = $users.get(token: params[:token])
+  user = $users.random unless user
+  user
 end
 
 def cu_session

@@ -20,6 +20,10 @@ class Array
     self.map {|el| el[field]}
   end
 
+  def mapf(method_name)
+    self.map(&method(method_name.to_sym))
+  end
+
   def hash_of_num_occurrences
     self.each_with_object(Hash.new(0)){|word,counts|counts[word]+=1}.sort_by{|k,v|v}.reverse.to_h
   end

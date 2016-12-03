@@ -27,10 +27,7 @@ def require_fields(fields)
 end
 
 def require_user
-  if !cu 
-  	redirect "/log_in"
-  end
-  halt_bad_input({msg:"you were blocked"}) if cu[:blocked]
+  halt(401, {msg: 'Log in please'}) if !cu 
 end
 
 get '/halts' do

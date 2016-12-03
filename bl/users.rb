@@ -20,3 +20,9 @@ namespace '/api/users' do
   end
 
 end # end /users
+
+def map_user(u)
+  u ||= {}
+  u = u.just(:_id, :name, :email)
+  u
+end

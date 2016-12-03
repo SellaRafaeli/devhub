@@ -1,5 +1,12 @@
 get '/seed_data' do 
   return 'disabled on prod' if $prod
+  seed_data
+  
+  #session[:user_id] = $sella['_id']
+  redirect '/api/users/'
+end
+
+def seed_data
   $users.delete_many
   $posts.delete_many
   $comments.delete_many
@@ -9,9 +16,6 @@ get '/seed_data' do
   add_comments
   $sella = $users.add(name: 'Sella Rafaeli', email: 'sella@rafaeli.net', token: '123')
   $eyal  = $users.add(name: 'Eyal Arubas', email: 'eyal@arubas.com', token: '456')
-  
-  #session[:user_id] = $sella['_id']
-  redirect '/api/users/'
 end
 
 def add_users

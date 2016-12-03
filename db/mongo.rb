@@ -10,7 +10,7 @@ $mongo_data = {}
 
 def page_mongo(collection, crit = {}, opts = {})
   default_limit = 20
-  sort = Array(opts[:sort])
+  sort = Array(opts[:sort] || [{created_at: -1}])
 
   if opts[:limit] && opts[:skip] 
     limit     = opts[:limit].to_i
