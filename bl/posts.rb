@@ -15,12 +15,14 @@ end
 
 post '/posts' do 
   require_user
-  p = $posts.add(params.just(:title, :url))
-  p = map_post(p)
+  data           = params.just(:title, :url)
+  data[:user_id] = cuid
+  p              = $posts.add(data)
+  p              = map_post(p)
 end
 
 def map_post(p, opts = {})
-  p = p.just(:_id, :title, :url, :user, :created_at)
+  p = p.just(:_id, :title, :url, :user_id, :created_at)
   
   p_id = p['_id']
   
