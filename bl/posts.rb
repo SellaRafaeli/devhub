@@ -20,6 +20,8 @@ post '/posts' do
 end
 
 def map_post(p, opts = {})
+  p = p.just(:_id, :title, :url, :user, :created_at)
+  
   p_id = p['_id']
   
   p[:user] = map_user($users.get(p[:user_id]))
@@ -29,7 +31,7 @@ def map_post(p, opts = {})
     p[:comments] = $comments.all(post_id: p_id).mapf(:map_comment)
   end
   
-  p = p.just(:_id, :title, :url, :user, :created_at, :comments, :num_comments)
+  
   p
 end
 

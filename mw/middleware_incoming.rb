@@ -25,7 +25,6 @@ def print(text)
   console.log(text)
 end
 
-
 def request_is_public?
   request_path.to_s.starts_with?('/css/','/js/','/img/','/favicon/','/HTTP/') rescue false 
 end
@@ -49,8 +48,7 @@ end
 
 def cu_token
   token = request_header(:token) || params[:token]
-  user = $users.get(token: params[:token])
-  user = $users.random unless user
+  user  = $users.get(token: token) if token
   user
 end
 
@@ -111,3 +109,5 @@ end
 def params_val(key, opts = {})
   params[key].present? ? params[key] : ( (opts && opts[:default]) ? opts[:default] : nil )
 end
+
+get '/mw/middleware_incoming' do 'refresh this' end

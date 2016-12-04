@@ -14,7 +14,7 @@ def seed_data
   add_users
   add_posts
   add_comments
-  $sella = $users.add(name: 'Sella Rafaeli', email: 'sella@rafaeli.net', token: '123')
+  $sella = $users.add(name: 'Sella Rafaeli', email: 'sella.rafaeli@gmail.com', token: '123')
   $eyal  = $users.add(name: 'Eyal Arubas', email: 'eyal@arubas.com', token: '456')
 end
 

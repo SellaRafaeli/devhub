@@ -31,6 +31,10 @@ get '/ping' do
   {msg: "pong from #{$app_name}", val: 'CarWaiting (is the new TrainSpotting)'}
 end
 
+get '/me' do
+  {cu: cu}
+end
+
 get '/' do
   {msg: 'see /api'
   #erb :homepage, layout: :layout
