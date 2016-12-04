@@ -1,4 +1,4 @@
-$postmark_client = Postmark::ApiClient.new(ENV['POSTMARK_TOKEN'])
+$postmark_client = Postmark::ApiClient.new(ENV['POSTMARK_API_TOKEN'])
 
 def send_email(to, subj, html_body)
   $postmark_client.deliver(
