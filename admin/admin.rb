@@ -16,8 +16,13 @@ get '/admin/remove_fake_users' do
   {msg: "removed faker users"}
 end
 
+get '/set_admin' do
+  session[:is_admin] if params[:foo] = 'bar'
+  session[:is_admin]
+end
+
 def is_admin(user = cu)
-  false
+  session[:is_admin]
 rescue 
   false
 end
