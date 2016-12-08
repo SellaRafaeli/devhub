@@ -33,7 +33,7 @@ def map_post(p, opts = {})
   p[:num_comments] = $comments.find(post_id: p_id, parent_id: {'$exists': false}).count
   
   if opts[:comments]
-    p[:comments] = $comments.all(post_id: p_id, parent_id: {'$exists': false}).mapf(:map_comment)
+    p[:comments] = $comments.all({post_id: p_id, parent_id: {'$exists': false}}, sort: [{created_at: 1}]).mapf(:map_comment)
   end
   
   

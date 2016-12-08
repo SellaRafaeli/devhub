@@ -7,7 +7,7 @@ post '/comments' do
 end
 
 def add_sons_to_comment(c)
-  c[:children] = $comments.get_many(parent_id: c[:_id]).mapf(:map_comment)
+  c[:children] = $comments.get_many({parent_id: c[:_id]}, sort: [{created_at: 1}]).mapf(:map_comment)
 end
 
 def map_comment(c) #map_single_comment
