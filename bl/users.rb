@@ -9,6 +9,7 @@ end
 get '/sella' do
   {user: $users.get(email: 'sella.rafaeli@gmail.com')}
 end
+
 namespace '/users' do
 
   post '/register' do
@@ -25,7 +26,6 @@ namespace '/users' do
 
   post '/request_signin_link' do 
     require_fields(['email'])
-    bp
     user = $users.get(email: params[:email])
     halt(401, {msg: 'No such user'}) if !user
     user = $users.update_id(user['_id'], {token: guid}) #new token
@@ -36,6 +36,7 @@ namespace '/users' do
   post '/login' do 
     require_fields(['token'])
     user      = $users.get(token: params[:token])
+    user      = $sella if !$prod
     new_token = guid
     if (user)
       $users.update_id(user['_id'], {token: new_token})

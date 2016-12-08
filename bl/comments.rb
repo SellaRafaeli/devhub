@@ -1,13 +1,20 @@
 $comments = $mongo.collection('comments')
 
 post '/comments' do 
+  require_user
   params[:user_id] = cuid
-  comment = $comments.add(params.just(:post_id, :text, :user_id))
+  comment = $comments.add(params.just(:post_id, :text, :user_id, :parent_id))
+end
+
+def add_sons_to_comment(c)
+  c[:children] = $comments.get_many(parent_id: c[:_id]).mapf(:map_comment)
 end
 
 def map_comment(c) #map_single_comment
+  c = c.hwia
   c[:user] = map_user($users.get(c[:user_id]))
-  c = c.just(:post_id,:text,:user,:created_at)
+  add_sons_to_comment(c)
+  c = c.just(:_id,:post_id,:text,:user,:created_at,:children)
 end
 
 # post '/comments/submit' do

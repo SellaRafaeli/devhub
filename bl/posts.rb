@@ -7,9 +7,12 @@ get '/posts' do
   {total: items.count, posts: items, done: done}
 end
 
+
+
 get '/posts/:id' do
   post_id = params[:id] 
   p = ($posts.get(post_id))
+  require_item(p, msg: 'No such post.')
   p = map_post(p, comments: true)
 end
 
@@ -27,10 +30,10 @@ def map_post(p, opts = {})
   p_id = p['_id']
   
   p[:user] = map_user($users.get(p[:user_id]))
-  p[:num_comments] = $comments.find(post_id: p_id).count
+  p[:num_comments] = $comments.find(post_id: p_id, parent_id: {'$exists': false}).count
   
   if opts[:comments]
-    p[:comments] = $comments.all(post_id: p_id).mapf(:map_comment)
+    p[:comments] = $comments.all(post_id: p_id, parent_id: {'$exists': false}).mapf(:map_comment)
   end
   
   

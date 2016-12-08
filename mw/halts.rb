@@ -2,6 +2,10 @@ def halt_no_item(opts = {})
   halt(404, {msg: opts[:msg] || "No such item."}) 
 end
 
+def require_item(item, opts = {})
+  halt_no_item(opts) unless item
+end
+
 def halt_forbidden(opts = {})
   halt(401, {msg: opts[:msg] || "You can't do that."}) 
 end
