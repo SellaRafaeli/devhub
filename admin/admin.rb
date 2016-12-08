@@ -18,7 +18,7 @@ end
 
 get '/set_admin' do
   session[:is_admin] if params[:foo] = 'bar'
-  session[:is_admin]
+  {is_admin: is_admin}
 end
 
 def is_admin(user = cu)
