@@ -17,7 +17,7 @@ get '/admin/remove_fake_users' do
 end
 
 get '/set_admin' do
-  session[:is_admin] if params[:foo] = 'bar'
+  session[:is_admin] = true if params[:foo] = 'bar'
   {is_admin: is_admin}
 end
 
