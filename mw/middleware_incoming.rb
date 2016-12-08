@@ -7,6 +7,7 @@ helpers do
     return if authorized?
     return if !$prod
     halt 401, "Not authorized\n" if !is_admin
+    return 
     headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
     halt 401, "Not authorized\n"
   end
