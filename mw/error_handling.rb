@@ -26,15 +26,16 @@ error do
   # end
 end
 
-# not_found do
-#   if request_expects_json?
-#     content_type 'application/json'
-#     status 404
-#     return {a:1} #{msg: 'Whoops, no such route.'}
-#   else 
-#     full_page_card(:"other/404")     
-#   end
-# end
+not_found do
+  return {err: 'No such route'}
+  if request_expects_json?
+    content_type 'application/json'
+    status 404
+    return {a:1} #{msg: 'Whoops, no such route.'}
+  else 
+    full_page_card(:"other/404")     
+  end
+end
 
 get '/error' do
   a = b 

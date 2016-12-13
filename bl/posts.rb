@@ -2,12 +2,10 @@ $posts = $mongo.collection('posts')
 
 get '/posts' do 
   crit        = params.just(:user_id)
-  items, done = page_mongo($posts, crit)
+  items, done = page_mongo($posts, crit, params)
   items       = items.mapf(:map_post)
-  {total: items.count, posts: items, done: done}
+  {posts: items, done: done}
 end
-
-
 
 get '/posts/:id' do
   post_id = params[:id] 

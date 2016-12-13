@@ -12,6 +12,12 @@ end
 
 namespace '/users' do
 
+  get '' do
+    items, done = page_mongo($users)
+    items       = items.mapf(:map_user)
+    {total: items.count, users: items, done: done}
+  end
+
   post '/register' do
     require_fields(['email','name'])
     name, email = params[:name], params[:email]

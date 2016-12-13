@@ -6,6 +6,13 @@ post '/comments' do
   comment = $comments.add(params.just(:post_id, :text, :user_id, :parent_id))
 end
 
+get '/comments' do 
+  crit        = params.just(:user_id)
+  items, done = page_mongo($comments, crit, params)
+  items       = items.mapf(:map_comment)
+  {comments: items, done: done}
+end
+
 def add_sons_to_comment(c)
   c[:children] = $comments.get_many({parent_id: c[:_id]}, sort: [{created_at: 1}]).mapf(:map_comment)
 end
